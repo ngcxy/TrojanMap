@@ -836,7 +836,7 @@ Phase 3: 60 points
       - You could check https://github.com/ourarash/ncurses_bazel
       - Please develope your own UI.
       - Example
-         <p align="center"><img src="img/ncurses example.gif" alt="example" width="500"/></p>
+         <p align="center"><img src="img/ncurses%20example.gif" alt="example" width="500"/></p>
                
    4. Accurate measurement of your algorithm runtime using [Google Benchmark](https://www.youtube.com/watch?v=9VKR8u9odrA) while sweeping the input size and providing a diagram of how the runtime grows based on the input size: 10 points.
 

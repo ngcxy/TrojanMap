@@ -1,5 +1,33 @@
 #include "trojanmap.h"
 
+// ==============================
+// Helper Function
+// ==============================
+bool IsPrefixMatched(const std::string& prefix, const std::string& target)
+{
+
+  // check only if prefix is provided && prefix.size <= target
+  if(!prefix.empty() && prefix.length()<= target.length())
+  {
+    // compare prefix with target  (not case sensitive)
+    for(int i=0; i<prefix.size(); i++)
+    {
+      if(std::tolower(prefix[i]) != std::tolower(target[i]))
+        return false;
+    }
+
+    // if prefix is matched, return true
+    return true;
+  }
+
+  // invalid prefix is provided
+  else
+    return false;
+}
+
+
+
+
 //-----------------------------------------------------
 // TODO: Students should implement the following:
 //-----------------------------------------------------
@@ -10,8 +38,13 @@
  * @param  {std::string} id : location id
  * @return {double}         : latitude
  */
-double TrojanMap::GetLat(const std::string &id) { 
-  return 0;
+double TrojanMap::GetLat(const std::string &id) {
+  auto iter = data.find(id);
+  // check if found
+  if(iter != data.end())
+    return iter->second.lat;
+  else
+    return -1;
 }
 
 /**
@@ -22,7 +55,12 @@ double TrojanMap::GetLat(const std::string &id) {
  * @return {double}         : longitude
  */
 double TrojanMap::GetLon(const std::string &id) {
-  return 0;
+  auto iter = data.find(id);
+  // check if found
+  if(iter != data.end())
+    return iter->second.lon;
+  else
+    return -1;
 }
 
 /**
@@ -33,7 +71,12 @@ double TrojanMap::GetLon(const std::string &id) {
  * @return {std::string}    : name
  */
 std::string TrojanMap::GetName(const std::string &id) {
-  return "";
+  auto iter = data.find(id);
+  // check if found
+  if(iter != data.end())
+    return iter->second.name;
+  else
+    return "NULL";
 }
 
 /**
@@ -44,7 +87,12 @@ std::string TrojanMap::GetName(const std::string &id) {
  * @return {std::vector<std::string>}  : neighbor ids
  */
 std::vector<std::string> TrojanMap::GetNeighborIDs(const std::string &id) {
-  return {};
+  auto iter = data.find(id);
+  // check if found
+  if(iter != data.end())
+    return iter->second.neighbors;
+  else
+    return {};
 }
 
 /**
@@ -57,6 +105,17 @@ std::vector<std::string> TrojanMap::GetNeighborIDs(const std::string &id) {
  */
 std::string TrojanMap::GetID(const std::string &name) {
   std::string res = "";
+
+  // loop through all nodes to find the one with expected name
+  for(auto& p : data){
+    // node name must be unique, empty is not a valid location name
+    if(!p.second.name.empty() && p.second.name == name)
+    {
+      // return ID, which is the key of the pair
+      res = p.first;
+      break;
+    }
+  }
   return res;
 }
 
@@ -69,6 +128,11 @@ std::string TrojanMap::GetID(const std::string &name) {
  */
 std::pair<double, double> TrojanMap::GetPosition(std::string name) {
   std::pair<double, double> results(-1, -1);
+  std::string id = GetID(name);
+  if(!id.empty()){
+    results.first = GetLat(id);
+    results.second= GetLon(id);
+  }
   return results;
 }
 
@@ -78,7 +142,7 @@ std::pair<double, double> TrojanMap::GetPosition(std::string name) {
  * @param  {std::string} b          : second string
  * @return {int}                    : edit distance between two strings
  */
-int TrojanMap::CalculateEditDistance(std::string a, std::string b) {     
+int TrojanMap::CalculateEditDistance(std::string a, std::string b) {
   return 0;
 }
 
@@ -103,6 +167,15 @@ std::string TrojanMap::FindClosestName(std::string name) {
  */
 std::vector<std::string> TrojanMap::Autocomplete(std::string name) {
   std::vector<std::string> results;
+
+  // TODO: loop through the map data to find all possible location names with matched prefix
+  for(const auto& tmp : data)
+  {
+    // 1. a location must has a name;  2. location's prefix must be matched with <name>
+    const std::string& location = tmp.second.name;
+    if(!location.empty() && IsPrefixMatched(name, location))
+      results.push_back(location);
+  }
   return results;
 }
 
