@@ -158,6 +158,12 @@ class TrojanMap {
   std::vector<bool> Queries(const std::vector<std::pair<double, std::vector<std::string>>> &q);
 
   //----------------------------------------------------- User-defined functions
+  bool DijkstraFound(std::priority_queue<std::pair<double, std::string>,
+              std::vector<std::pair<double, std::string>>,
+              std::greater<std::pair<double, std::string>>>& q,
+              std::unordered_map<std::string,
+              std::pair<bool, std::pair< double, std::string >>>& mark,
+              std::string id2);
 };
 
 #endif
