@@ -368,9 +368,25 @@ Please report and compare the time spent by these algorithms.
 
 **You should create a table like below, which includes the runtime of the algorithm for several examples.**
 
-| Point A to Point B      | Dijkstra | Bellman Ford| Bellman Ford optimized|
-| -------------------- | ----------- |-------|-----|
-|                      |  t1         | t2    |   t3  |
+Our Table:
+
+| Point A to Point B                 | Dijkstra | Bellman Ford |
+|------------------------------------|----------|--------------|
+| Ralphs - Target                    | 43 ms    | 7209 ms      |
+| Chick-fil-A - Ralphs               | 92 ms    | 6094 ms      |
+| North Residential College - Target | 29 ms    | 7184 ms      |
+| Jefferson Park - Chick-fil-A       | 87 ms    | 8802 ms      |
+| Jefferson Park - Ralphs            | 61 ms    | 8925 ms      |
+| Trader Joe's - Target              | 6 ms     | 61 ms        |
+| Bank of America - CAVA             | 7 ms     | 6474 ms      |
+| Trader Joe's - Starbucks 3         | 9 ms     | 64 ms        |
+| Bank of America - Target           | 6 ms     | 6670 ms      |
+| Starbucks 3 - Bank of America      | 6 ms     | 6555 ms      |
+| Trader Joe's - Amazon Hub Locker   | 3 ms     | 56 ms        |
+| Jefferson Park - Starbucks 3       | 66 ms    | 8791 ms      |
+| Starbucks 3 - Target               | 7 ms     | 6601 ms      |
+| Ralphs - CAVA                      | 41 ms    | 7190 ms      |
+| Starbucks 1 - Amazon Hub Locker    | 43 ms    | 6629 ms      |
 
 Your table should show have at least 15 rows.
 
