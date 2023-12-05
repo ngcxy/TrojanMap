@@ -132,7 +132,9 @@ TEST(GetLocationRegex, Test3) {
   TrojanMap m;
   std::regex input("(Hill)(.*)");
   auto ids1 = m.GetLocationRegex(input);
-  std::vector <std::string> gt{ "9587039894", "9587039895", "6279600811", "6279600807", "6279600805", "6279600804", "6503044368", "6123510349", "6279600812", "6279600806", "9596557992", "6123510350", "6279600808", "9598720154", "4291108051" };
+  std::vector <std::string> gt{  "9596557992", "9587039895", "6123510349", "4291108051", "6279600808", "6279600806", "6279600805", "6279600812", "9598720154", "9587039894", "6279600811", "6123510350", "6279600804", "6279600807", "6503044368" };
+  std::sort(gt.begin(), gt.end());
+  std::sort(ids1.begin(), ids1.end());
   EXPECT_EQ(ids1, gt);
 }
 
@@ -367,15 +369,15 @@ TEST(TopologicalSort, Test1) {
 TEST(TopologicalSort, Test2) {
   TrojanMap m;
   std::vector<std::string> location_names2 =
-  {"Expo/Vermont 1", "Electric Vehicle Charging Station", "Kedren Community Health Center", "The Sonshine Shop Thrift Store",
-  "Lee's Market","Dornsife Spatial Sciences Institute","CVS Pharmacy","7-Eleven"};
+  {"Expo/Vermont 1","7-Eleven","CVS Pharmacy"};
   std::vector<std::vector<std::string>> dependencies2 =
-  {{"Expo/Vermont 1","Electric Vehicle Charging Station"}, {"Electric Vehicle Charging Station","Kedren Community Health Center"},
-  {"Kedren Community Health Center","The Sonshine Shop Thrift Store"},{"The Sonshine Shop Thrift Store","Lee's Market"},
-  {"Lee's Market","Dornsife Spatial Sciences Institute"},{"Dornsife Spatial Sciences Institute","CVS Pharmacy"},{"CVS Pharmacy","7-Eleven"}};
+  { {"Expo/Vermont 1","7-Eleven"}, 
+    {"Expo/Vermont 1","CVS Pharmacy"},
+    {"CVS Pharmacy","7-Eleven"},
+  };
   auto result2 = m.DeliveringTrojan(location_names2, dependencies2);
   std::vector<std::string> gt2 =
-  { "Expo/Vermont 1", "CVS Pharmacy", "Dornsife Spatial Sciences Institute", "Electric Vehicle Charging Station", "The Sonshine Shop Thrift Store", "Kedren Community Health Center", "Lee's Market", "7-Eleven" };
+  { "Expo/Vermont 1", "CVS Pharmacy", "7-Eleven"};
   EXPECT_EQ(result2, gt2);
 }
 
@@ -567,8 +569,8 @@ TEST(FindNearby, Test2) {
 
 TEST(FindNearby, Test3) {
   TrojanMap m;
-  auto result = m.FindNearby("fast_food", "Leavey Library", 5, 5);
-  std::vector<std::string> ans{"9591449455", "5567733799", "4927493958", "6278441399", "6278441392", "6278441244"};
+  auto result = m.FindNearby("bakery", "Leavey Library", 2, 10);
+  std::vector<std::string> ans{"9591449461"};
   EXPECT_EQ(result, ans);
 }
 

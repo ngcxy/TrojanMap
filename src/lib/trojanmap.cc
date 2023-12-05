@@ -888,7 +888,7 @@ std::vector<std::string> TrojanMap::FindNearby(std::string attributesName, std::
     std::vector<std::string> locationIdsWithAttr = GetAllLocationsFromCategory(attributesName);
     if (locationIdsWithAttr[0] != "-1"){
         std::string pivotId = GetID(name);
-        int counter = 0;
+        int counter = 1;
         for(auto& loc : locationIdsWithAttr)
         {
             // find at most K nearby locations
