@@ -196,6 +196,8 @@ The idea is using the structure similar to the Brute-force method enhanced with 
 
 Due to the implementation of Dijkstra algorithm and the traversal, the runtime complexity should be *O*(k!×*n*^2), with k being the number of stops.
 
+<img src="img/r11.png" style="zoom:50%;" />
+
 
 
 ###### 14. Queries
@@ -203,6 +205,8 @@ Due to the implementation of Dijkstra algorithm and the traversal, the runtime c
 This function is designed based on the idea of Dijkstra algorithm with a limitation of the max distance of the hop. Therefore, I add a parameter as `tank_capacity` to the helper function `DijkstraFound`, and I also set this parameter to be DBL_MAX in the previous simple Dijkstra function.
 
 The overall runtime should be *O*(k×*n*^2), with k being the number of the queries.
+
+<img src="img/r12.png" style="zoom:25%;" />
 
 
 ### Discussion
