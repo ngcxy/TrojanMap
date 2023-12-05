@@ -139,6 +139,19 @@ void MapUI::PrintMenu() {
         "**************************************************************\n";
     std::cout << menu << std::endl;
     // fill in here
+    menu = "Please input the category:";
+    std::cout << menu;
+    std::string input2;
+    getline(std::cin, input2);
+    try{
+        std::regex reg_exp(input2);
+        auto output = map.GetLocationRegex(reg_exp);
+        for (auto x: output) {
+            std::cout << "\""  << x << "\"" << ", ";
+        }
+    } catch(const std::regex_error& e){
+        
+    }
     PrintMenu();
     break;
   }

@@ -2,6 +2,7 @@
 #define TROJAN_MAP_H
 
 #include <math.h>
+#include <float.h>
 
 #include <algorithm>
 #include <cfloat>
@@ -138,6 +139,9 @@ class TrojanMap {
       std::vector<std::string> location_ids);
 
   std::vector<std::string> TrojanPath(std::vector<std::string> &location_names);
+
+  void TrojanPath_helper(std::string prev, std::pair<double, std::vector<std::vector<std::string>>> &min,
+  std::pair<double, std::vector<std::vector<std::string>>> &cur, std::unordered_map<std::string, bool> &visited);
     
   // Check whether the id is in square or not
   bool inSquare(std::string id, std::vector<double> &square);
@@ -158,12 +162,24 @@ class TrojanMap {
   std::vector<bool> Queries(const std::vector<std::pair<double, std::vector<std::string>>> &q);
 
   //----------------------------------------------------- User-defined functions
-  bool DijkstraFound(std::priority_queue<std::pair<double, std::string>,
-              std::vector<std::pair<double, std::string>>,
-              std::greater<std::pair<double, std::string>>>& q,
-              std::unordered_map<std::string,
-              std::pair<bool, std::pair< double, std::string >>>& mark,
-              std::string id2);
+    bool DijkstraFound(std::priority_queue<std::pair<double, std::string>,
+                std::vector<std::pair<double, std::string>>,
+                std::greater<std::pair<double, std::string>>>& q,
+                std::unordered_map<std::string,
+                std::pair<bool, std::pair< double, std::string >>>& mark,
+                std::string id2,
+                double tank_capacity);
+
+
+    void earlyBacktrack(const std::vector<std::string>& location_ids,
+                std::pair<double, std::vector<std::vector<std::string>>>& records,
+                std::vector<std::string>& current_path,
+                std::vector<bool>& visited,
+                double current_distance,
+                int start);
+
+    // For example, if you have edges (A-B) and (C-D) and they cross, you can swap them to have (A-C) and (B-D).
+    std::vector<std::string> twoOptSwapHelper(const std::vector<std::string>& path, int i, int k);
 };
 
 #endif
